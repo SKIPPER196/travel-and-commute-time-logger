@@ -1,5 +1,6 @@
 from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QDialog, QLabel, QPushButton, QComboBox, QTableWidget, QTableWidgetItem, QLineEdit, QTextEdit, QDateEdit, QTimeEdit, QDialogButtonBox, QMessageBox, QHBoxLayout, QVBoxLayout, QFormLayout
-from PyQt6.QtCore import Qt, QDateTime, QDate, QTime, QFile, QTextStream
+from PyQt6.QtCore import Qt, QDateTime, QDate, QTime
+from pathlib import Path
 from core import db
 
 class MainWindow(QMainWindow):
@@ -81,22 +82,24 @@ class MainWindow(QMainWindow):
 		self.add_log_btn.clicked.connect(self.open_child_add_log)
 		self.delete_log_btn.clicked.connect(self.delete_log)
 		self.clear_all_logs_btn.clicked.connect(self.clear_all_logs)
-		
-		# Load data from database
+
 		self.load_stylesheet()
 		self.load_from_database()
 
 	def load_stylesheet(self):
 		# Load and apply QSS stylesheet for UI styling
-		style_file = QFile("TravelAndCommuteTimeLogger/app/core/styles.qss")
-		if style_file.open(QFile.OpenModeFlag.ReadOnly | QFile.OpenModeFlag.Text):
-			stream = QTextStream(style_file)
-			self.setStyleSheet(stream.readAll())
-			style_file.close()
+		qss_file_path = Path(__file__).resolve().parent.parent / "core" / "styles.qss"
+
+		if qss_file_path.exists():
+			with qss_file_path.open("r", encoding="utf-8") as f:
+				file = f.read()
+				app = QApplication.instance()
+				app.setStyleSheet(file)
 		
 	def load_from_database(self):
 		# Load logs from database and populate table with travel data
 		logs = db.get_all_logs()
+
 		if logs:
 			# Create default table if none exists
 			if not self.tables:
@@ -144,6 +147,7 @@ class MainWindow(QMainWindow):
 				# Make all cells non-editable for data integrity
 				for col in range(current_table.columnCount()):
 					item = current_table.item(row, col)
+
 					if item:
 						item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsEditable)
 			
@@ -265,16 +269,20 @@ class MainWindow(QMainWindow):
 		# Parse days component
 		if 'day' in duration_text:
 			days_part = duration_text.split('day')[0].strip()
+
 			if '&' in days_part:
 				days_part = days_part.split('&')[0].strip()
+
 			if ',' in days_part:
 				days_part = days_part.split(',')[0].strip()
+
 			days = int(days_part)
 			total_seconds += days * 86400
 		
 		# Parse hours component
 		if 'hr' in duration_text:
 			hours_part = duration_text.split('hr')[0]
+
 			if '&' in hours_part:
 				hours_part = hours_part.split('&')[-1].strip()
 			elif ',' in hours_part:
@@ -287,6 +295,7 @@ class MainWindow(QMainWindow):
 		# Parse minutes component
 		if 'min' in duration_text:
 			minutes_part = duration_text.split('min')[0]
+
 			if '&' in minutes_part:
 				minutes_part = minutes_part.split('&')[-1].strip()
 			else:
@@ -370,16 +379,20 @@ class MainWindow(QMainWindow):
 		# Build total duration components
 		if total_days > 0:
 			total_components.append(f"{total_days} {'day' if total_days == 1 else 'days'}")
+
 		if total_hours > 0:
 			total_components.append(f"{total_hours} {'hr' if total_hours == 1 else 'hrs'}")
+
 		if total_minutes > 0:
 			total_components.append(f"{total_minutes} {'min' if total_minutes == 1 else 'mins'}")
 
 		# Build average duration components
 		if average_days > 0:
 			average_components.append(f"{average_days} {'day' if average_days == 1 else 'days'}")
+
 		if average_hours > 0:
 			average_components.append(f"{average_hours} {'hr' if average_hours == 1 else 'hrs'}")
+
 		if average_minutes > 0:
 			average_components.append(f"{average_minutes} {'min' if average_minutes == 1 else 'mins'}")
 		
@@ -684,6 +697,7 @@ class ChildAddLog(QDialog):
 	def adjust_end_time(self):
 		# Ensure end time is always after start time
 		start_dt, end_dt = self.get_datetime_inputs()
+
 		if start_dt >= end_dt:
 			increment = start_dt.addSecs(60)
 			self.end_date_input.setDate(increment.date())
@@ -692,6 +706,7 @@ class ChildAddLog(QDialog):
 	def adjust_start_time(self):
 		# Ensure start time is always before end time
 		start_dt, end_dt = self.get_datetime_inputs()
+
 		if end_dt <= start_dt:
 			increment = end_dt.addSecs(-60)
 			self.start_date_input.setDate(increment.date())
@@ -699,6 +714,7 @@ class ChildAddLog(QDialog):
 
 	def add(self):
 		# Validate inputs and add new log to database and UI
+
 		# Origin validation
 		if not self.origin_input.text():
 			self.error_label1.setVisible(True)
@@ -722,6 +738,7 @@ class ChildAddLog(QDialog):
 
 		# DateTime validation
 		start_dt, end_dt = self.get_datetime_inputs()
+
 		if start_dt >= end_dt:
 			self.error_label4.setVisible(True)
 			self.error_label4.setText("<font color='red'> * End date & time must be after start date & time.</font>")
@@ -734,6 +751,7 @@ class ChildAddLog(QDialog):
 		# Check if any validation errors exist
 		errors = [self.error_label1.isVisible(), self.error_label2.isVisible(), 
 				self.error_label3.isVisible(), self.error_label4.isVisible()]
+
 		if any(errors):
 			return
 
@@ -788,6 +806,7 @@ class ChildAddLog(QDialog):
 			# Make all cells non-editable
 			for col in range(current_table.columnCount()):
 				item = current_table.item(new_log, col)
+
 				if item:
 					item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsEditable)
 			
@@ -866,6 +885,7 @@ class ChildEditLog(QDialog):
 		
 		# Set current mode in combobox
 		current_mode = self.mode_input_cb.findText(mode)
+
 		if current_mode != -1:
 			self.mode_input_cb.setCurrentIndex(current_mode)
 		else:
@@ -935,6 +955,7 @@ class ChildEditLog(QDialog):
 	def adjust_end_time(self):
 		# Ensure end time is always after start time
 		start_dt, end_dt = self.get_datetime_inputs()
+
 		if start_dt >= end_dt:
 			increment = start_dt.addSecs(60)
 			self.end_date_input.setDate(increment.date())
@@ -943,6 +964,7 @@ class ChildEditLog(QDialog):
 	def adjust_start_time(self):
 		# Ensure start time is always before end time
 		start_dt, end_dt = self.get_datetime_inputs()
+
 		if end_dt <= start_dt:
 			increment = end_dt.addSecs(-60)
 			self.start_date_input.setDate(increment.date())
@@ -950,6 +972,7 @@ class ChildEditLog(QDialog):
 
 	def save(self):
 		# Validate inputs and save edited log to database and UI
+
 		# Origin validation
 		if not self.origin_input.text():
 			self.error_label1.setVisible(True)
@@ -973,6 +996,7 @@ class ChildEditLog(QDialog):
 
 		# DateTime validation
 		start_dt, end_dt = self.get_datetime_inputs()
+
 		if start_dt >= end_dt:
 			self.error_label4.setVisible(True)
 			self.error_label4.setText("<font color='red'> * End date & time must be after start date & time.</font>")
@@ -985,6 +1009,7 @@ class ChildEditLog(QDialog):
 		# Check if any validation errors exist
 		errors = [self.error_label1.isVisible(), self.error_label2.isVisible(), 
 				self.error_label3.isVisible(), self.error_label4.isVisible()]
+
 		if any(errors):
 			return
 
@@ -1033,6 +1058,7 @@ class ChildEditLog(QDialog):
 			# Make all cells non-editable
 			for col in range(current_table.columnCount()):
 				item = current_table.item(self.current_log, col)
+
 				if item:
 					item.setFlags(item.flags() & ~Qt.ItemFlag.ItemIsEditable)
 
