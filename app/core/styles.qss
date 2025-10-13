@@ -1,0 +1,308 @@
+/* styles.qss - Travel & Commute Time Logger Theme */
+
+/* ===== MAIN WINDOW ===== */
+QMainWindow {
+    background-color: #669db3;
+}
+
+/* ===== DIALOGS ===== */
+QDialog {
+    background-color: #f5f7fa;
+}
+
+/* ===== LABELS ===== */
+/* Title Label */
+QLabel#title {
+    font-size: 24px;
+    font-family: 'HP Simplified', sans-serif;
+    font-weight: 500;
+    color: #f0f6f7;
+    border-radius: 8px;
+    margin: 10px;
+}
+
+/* Regular Labels */
+QLabel {
+    font-size: 11px;
+    color: #34495e;
+    font-weight: 600;
+}
+
+/* Specific Label Types */
+QLabel[text="Table:"] {
+    font-size: 11px;
+    color: white;
+    font-weight: bold;
+}
+
+QLabel[text="* "] {
+    color: red;
+    font-size: 10px;
+    padding: 2px;
+}
+
+QLabel[text*="Duration"] {
+    font-size: 12px;
+    font-weight: bold;
+    color: #2c3c4e;
+    background-color: #ecf0f1;
+    padding: 10px;
+    border-radius: 10px;
+    border-left: 4px solid #1698f0;
+    border-right: 4px solid #1698f0;
+}
+
+/* ===== BUTTONS ===== */
+/* Base Button Style */
+QPushButton {
+    background-color: #1698f0;
+    border-bottom: 2px solid #788687;
+    border-right: 2px solid #788687;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 11px;
+    min-height: 10px;
+}
+
+/* Button States */
+QPushButton:hover {
+    background-color: #128cde;
+}
+
+QPushButton:pressed {
+    background-color: #1081cc;
+}
+
+QPushButton:disabled {
+    background-color: #bdc3c7;
+    color: #7f8c8d;
+}
+
+/* Special Action Buttons */
+QPushButton[text="Create Table"],
+QPushButton[text="Add Log"] {
+    background-color: #20a844;
+}
+
+QPushButton[text="Create Table"]:hover,
+QPushButton[text="Add Log"]:hover {
+    background-color: #1c943c;
+}
+
+QPushButton[text="Create Table"]:pressed,
+QPushButton[text="Add Log"]:pressed {
+    background-color: #198235;
+}
+
+/* Destructive Action Buttons */
+QPushButton[text="Delete Table"],
+QPushButton[text="Delete Log"],
+QPushButton[text="Clear All Logs"] {
+    background-color: #e74c3c;
+}
+
+QPushButton[text="Delete Table"]:hover,
+QPushButton[text="Delete Log"]:hover,
+QPushButton[text="Clear All Logs"]:hover {
+    background-color: #d44637;
+}
+
+QPushButton[text="Delete Table"]:pressed,
+QPushButton[text="Delete Log"]:pressed,
+QPushButton[text="Clear All Logs"]:pressed {
+    background-color: #c24032;
+}
+
+QPushButton[text="Delete Table"]:disabled,
+QPushButton[text="Add Log"]:disabled,
+QPushButton[text="Delete Log"]:disabled,
+QPushButton[text="Clear All Logs"]:disabled {
+    background-color: #bdc3c7;
+}
+
+/* Dialog Buttons */
+QPushButton[text="Cancel"] {
+    background-color: #bdc3c7;
+}
+
+QPushButton[text="Cancel"]:hover {
+    background-color: #9c9c9c;
+}
+
+QPushButton[text="Cancel"]:pressed {
+    background-color: #7f8c8d;
+}
+
+/* Borderless Dialog Buttons */
+QPushButton[text="Cancel"],
+QPushButton[text="Create"],
+QPushButton[text="Save"],
+QPushButton[text="Add"],
+QPushButton[text="Yes"],
+QPushButton[text="No"] {
+    border: none;
+}
+
+/* Dialog Button Box */
+QDialogButtonBox QPushButton {
+    min-width: 50px;
+}
+
+/* ===== COMBO BOX ===== */
+QComboBox {
+    border: 2px solid #bdc3c7;
+    border-radius: 5px;
+    padding: 5px 10px;
+    background-color: white;
+    font-size: 11px;
+    min-height: 15px;
+}
+
+QComboBox:hover {
+    border-color: #3498db;
+}
+
+QComboBox::drop-down {
+    border: none;
+    width: 20px;
+}
+
+QComboBox::down-arrow {
+    width: 10px;
+    height: 0px;
+    border-top: 2px solid #34495e;
+}
+
+QComboBox QAbstractItemView {
+    border: 2px solid #bdc3c7;
+    border-radius: 5px;
+    background-color: white;
+    selection-background-color: #3498db;
+    selection-color: white;
+}
+
+/* ===== TABLE WIDGET ===== */
+QTableWidget {
+    background-color: white;
+    border: 2px solid #bdc3c7;
+    border-radius: 8px;
+    gridline-color: #ecf0f1;
+    font-size: 11px;
+}
+
+QTableWidget::item {
+    padding: 8px;
+    border-bottom: 2px solid #ecf0f1;
+}
+
+QTableWidget::item:hover {
+    background-color: #f8f9fa;
+}
+
+QTableWidget::item:selected {
+    background-color: #3498db;
+    color: white;
+}
+
+/* Table Headers */
+QHeaderView::section {
+    background-color: #496c8c;
+    color: white;
+    padding: 8px;
+    border-right: 3px solid #95a5a6;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+/* ===== INPUT FIELDS ===== */
+/* Line Edit */
+QLineEdit {
+    border: 2px solid #bdc3c7;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 11px;
+    background-color: white;
+    min-height: 10px;
+}
+
+QLineEdit:focus {
+    border-color: #3498db;
+    background-color: #f8f9fa;
+}
+
+/* Text Edit */
+QTextEdit {
+    border: 2px solid #bdc3c7;
+    border-radius: 5px;
+    padding: 8px;
+    font-size: 11px;
+    background-color: white;
+}
+
+QTextEdit:focus {
+    border-color: #3498db;
+    background-color: #f8f9fa;
+}
+
+/* Date and Time Edit */
+QDateEdit, QTimeEdit {
+    border: 2px solid #bdc3c7;
+    border-radius: 5px;
+    padding: 2px;
+    font-size: 11px;
+    height: 16px;
+}
+
+QDateEdit:focus, QTimeEdit:focus {
+    border-color: #3498db;
+    background-color: #f8f9fa;
+}
+
+QDateEdit::drop-down, QTimeEdit::drop-down {
+    border: none;
+    width: 20px;
+}
+
+QDateEdit::down-arrow {
+    width: 10px;
+    height: 0px;
+    border-top: 2px solid #34495e;
+}
+
+/* ===== LAYOUTS ===== */
+/* Form Layout */
+QFormLayout {
+    margin: 10px;
+}
+
+/* Horizontal and Vertical Layouts */
+QHBoxLayout, QVBoxLayout {
+    margin: 5px;
+    spacing: 10px;
+}
+
+/* ===== SCROLLBARS ===== */
+QScrollBar:vertical {
+    border: none;
+    background-color: #ecf0f1;
+    width: 8px;
+    margin: 0px;
+    border-radius: 6px;
+}
+
+QScrollBar::handle:vertical {
+    background-color: #bdc3c7;
+    border-radius: 4px;
+    min-height: 20px;
+}
+
+QScrollBar::handle:vertical:hover {
+    background-color: #95a5a6;
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+    border: none;
+    background: #20a844;
+}
