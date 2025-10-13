@@ -72,7 +72,7 @@ The project follows a modular structure with clear separation of concerns:
 
 3. **Download the project files** and navigate to the project directory in your terminal/command prompt:
    ```bash
-   cd path/to/TravelAndCommuteTimeLogger
+   cd path/to/travel-and-commute-time-logger-main
    ```
 
 4. **Run the application**:
