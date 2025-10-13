@@ -2,7 +2,7 @@
 
 ---
 
-## Proponent(s)
+## Proponent
 
 **Ymman Neil Geolamen** – BSCS
 
