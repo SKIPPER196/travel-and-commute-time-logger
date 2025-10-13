@@ -77,5 +77,5 @@ The project follows a modular structure with clear separation of concerns:
 
 4. **Run the application**:
    ```bash
-   python main.py
+   python app/main.py
    ```
