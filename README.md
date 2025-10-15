@@ -34,11 +34,11 @@ The Travel & Commute Time Logger is a desktop application designed to help users
 
 The project follows a modular structure with clear separation of concerns:
 
-- **`main.py`** – Application entry point that initializes and runs the GUI
-- **`shell/main_window.py`** – Contains the main application window and core functionality
-- **`core/db.py`** – Database management module handling all SQLite operations
-- **`core/styles.qss`** – Qt Stylesheet for application theming
-- **`core/database.db`** – SQLite database file (auto-generated)
+- **`app/main.py`** – Application entry point that initializes and runs the GUI
+- **`app/shell/main_window.py`** – Contains the main application window and core functionality
+- **`app/core/db.py`** – Database management module handling all SQLite operations
+- **`app/core/styles.qss`** – Qt Stylesheet for application theming
+- **`app/core/database.db`** – SQLite database file (auto-generated)
 
 ---
 
