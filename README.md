@@ -25,7 +25,7 @@ The Travel & Commute Time Logger is a desktop application designed to help users
 - **Data validation** with user-friendly error messages
 - **Persistent data storage** using SQLite database
 - **Real-time input validation** for date/time consistency
-- ****Smart time adjustment** to prevent invalid time ranges
+- **Smart time adjustment** to prevent invalid time ranges
 - **Double-click to edit** functionality for quick log modifications
 
 ---
